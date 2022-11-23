@@ -1,10 +1,10 @@
 
 def find_country(some_list: list, country: str) -> list:
     res_list = []
-    for visit in some_list:
-        for city, country_2 in visit.values():
+    for visit_data in some_list:
+        for city, country_2 in visit_data.values():
             if country_2 is country:
-                res_list.append(visit)
+                res_list.append(visit_data)
     return res_list
 
 
