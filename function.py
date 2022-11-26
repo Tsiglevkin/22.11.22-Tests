@@ -1,3 +1,6 @@
+import requests
+import configparser
+
 
 def find_country(some_list: list, country: str) -> list:
     """This function returns a list with visits to required country"""
@@ -34,4 +37,34 @@ def make_range(some_list: list) -> dict:
         res_dict[key] = percent
     return res_dict
 
+
+def get_token(class_, key):
+    c = configparser.ConfigParser()
+    c.read('settings.ini')
+    token = c[class_][key]
+    return token
+
+
+class Yandex:
+    def __init__(self, token, url='https://cloud-api.yandex.net/v1/disk/resources'):
+        self.token = token
+        self.url = url
+
+    def _get_headers(self):
+        return {'Content_Type': 'application/json', 'Authorization': f'OAuth {self.token}'}
+
+    def create_folder(self, folder_path):
+        headers = self._get_headers()
+        params = {'path': folder_path}
+        response = requests.put(self.url, headers=headers, params=params)
+        return response.status_code
+
+    def delete_folder(self, folder_path):
+        headers = self._get_headers()
+        params = {
+            'path': folder_path,
+            'permanently': 'true',
+            'force_async': 'true'}
+        response = requests.delete(self.url, headers=headers, params=params)
+        return response.status_code
 

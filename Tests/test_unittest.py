@@ -1,4 +1,4 @@
-# не получается работа с parameterized - ошибка, что функция во время теста возвр. none.
+# не получается работа с parameterized в unittest - ошибка, что функция во время теста возвр. none.
 # текст ошибки 'don't know how to make test from: None'
 
 import unittest
@@ -8,10 +8,10 @@ from data import geo_logs, ids, queries, russia, france, india, func_3_res, func
 
 
 class TestFunc(unittest.TestCase):
-    # def test_find_country(self):
-    #     result = find_country(some_list=geo_logs, country='россия')
-    #     etalon = russia
-    #     self.assertEqual(result, etalon)
+    def test_find_country(self):
+        result = find_country(some_list=geo_logs, country='россия')
+        etalon = russia
+        self.assertEqual(result, etalon)
 
     def test_kill_doubles(self):
         result = kill_doubles(some_dict=ids)
